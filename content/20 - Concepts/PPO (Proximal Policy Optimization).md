@@ -764,6 +764,9 @@ $$
 $$
 \hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)
 $$
+$$
+L^{VF} = (V(s_t) - V_t^{targ})^2
+$$
 
 代码如下：
 
