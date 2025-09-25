@@ -1,6 +1,7 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:35:01.063-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:37:18.808-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
+
 
 ## 论文公式解释：
  
@@ -762,7 +763,8 @@ $$
 $$
 \hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)
 $$
-$L^{VF} = (V(s_t) - V_t^{targ})^2$$
+$$
+L^{VF} = (V(s_t) - V_t^{targ})$$
 
 代码如下：
 
