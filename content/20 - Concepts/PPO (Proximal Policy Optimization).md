@@ -1,15 +1,17 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T22:37:09.757-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T22:39:42.099-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
 
 ## 论文公式解释：
 
 所有公式号码的标注与原论文相同。
+
 ### Background: Policy Optimization
 
 #### Policy Gradient Methods
 
 我们先看公式2。
+
 ##### 公式 (2): 策略梯度目标函数 (The Policy Gradient Objective Function)
 
 $$L^{PG}(\theta) = \hat{\mathbb{E}}_t \left[ \log \pi_\theta(a_t | s_t) \hat{A}_t \right] \quad (2)$$
@@ -746,17 +748,23 @@ $$
 
 
 还是先来点公式经典回顾
-$L^{CPI}(\theta) = \hat{\mathbb{E}}_t \left[ \frac{\pi_\theta(a_t | s_t)}{\pi_{\theta_{old}}(a_t | s_t)} \hat{A}_t \right] \quad (6)$$
-
-$L^{CLIP}(\theta) = \hat{\mathbb{E}}_t \left[ \min\left( r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t \right) \right] \quad (7)$$
-
-$L^{CLIP+VF+S}_t(\theta) = \hat{\mathbb{E}}_t \left[ L^{CLIP}_t(\theta) - c_1 L^{VF}_t(\theta) + c_2 S[\pi_\theta](s_t) \right] \quad (9)$$
-
-$\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (12)$$
-
-$\hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)$$
-
-$L^{VF} = (V(s_t) - V_t^{targ})^2$$
+$$
+L^{CPI}(\theta) = \hat{\mathbb{E}}_t \left[ \frac{\pi_\theta(a_t | s_t)}{\pi_{\theta_{old}}(a_t | s_t)} \hat{A}_t \right] \quad (6)
+$$
+$$
+L^{CLIP}(\theta) = \hat{\mathbb{E}}_t \left[ \min\left( r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t \right) \right] \quad (7)
+$$
+$$
+L^{CLIP+VF+S}_t(\theta) = \hat{\mathbb{E}}_t \left[ L^{CLIP}_t(\theta) - c_1 L^{VF}_t(\theta) + c_2 S[\pi_\theta](s_t) \right] \quad (9)
+$$
+$$
+\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (12)
+$$
+$$
+\hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)
+$$
+$$
+L^{VF} = (V(s_t) - V_t^{targ})$$
 
 ```python
         # Optimizing the policy and value network
