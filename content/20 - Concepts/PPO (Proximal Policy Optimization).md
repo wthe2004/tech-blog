@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T21:03:58.663-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T22:24:15.759-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
 
 ## 论文公式解释：
@@ -689,6 +689,7 @@ PPO的实现如下。以下代码片段来自[[30 - Resources/Code Repos/CleanRL
 
 回顾一下公式：
 $\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (1)$$
+
 $\hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (2)$$
 倒倒序循环是为了递归计算。把公式（2）变形一下：
 $$
@@ -741,10 +742,15 @@ $$
 
 还是先来点公式经典回顾
 $L^{CPI}(\theta) = \hat{\mathbb{E}}_t \left[ \frac{\pi_\theta(a_t | s_t)}{\pi_{\theta_{old}}(a_t | s_t)} \hat{A}_t \right] \quad (6)$$
+
 $L^{CLIP}(\theta) = \hat{\mathbb{E}}_t \left[ \min\left( r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t \right) \right] \quad (7)$$
+
 $L^{CLIP+VF+S}_t(\theta) = \hat{\mathbb{E}}_t \left[ L^{CLIP}_t(\theta) - c_1 L^{VF}_t(\theta) + c_2 S[\pi_\theta](s_t) \right] \quad (9)$$
+
 $\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (12)$$
+
 $\hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)$$
+
 $L^{VF} = (V(s_t) - V_t^{targ})^2$$
 
 ```python
