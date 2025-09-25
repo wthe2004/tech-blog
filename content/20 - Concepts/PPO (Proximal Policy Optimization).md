@@ -1,6 +1,7 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:39:26.699-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:41:34.648-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
+
 
 ## 论文公式解释：
  
@@ -748,8 +749,6 @@ $$
 
 还是先来点公式经典回顾
 
-$$
-L^{VF} = (V(s_t) - V_t^{targ})$$
 $$
 L^{CPI}(\theta) = \hat{\mathbb{E}}_t \left[ \frac{\pi_\theta(a_t | s_t)}{\pi_{\theta_{old}}(a_t | s_t)} \hat{A}_t \right] \quad (6)
 $$
