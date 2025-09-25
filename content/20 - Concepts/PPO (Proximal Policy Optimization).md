@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:01:31.304-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:04:58.390-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
 
 ## 论文公式解释：
@@ -7,7 +7,7 @@
 所有公式号码的标注与原论文相同。
  
 ### Background: Policy Optimization
-
+ 
 #### Policy Gradient Methods
 
 我们先看公式2。
@@ -763,7 +763,8 @@ $$
 \hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)
 $$
 $$
-L^{VF} = (V(s_t) - V_t^{targ})$$
+L^{VF} = (V(s_t) - V_t^{targ})^2$$
+
 代码如下：
 
 ```python
