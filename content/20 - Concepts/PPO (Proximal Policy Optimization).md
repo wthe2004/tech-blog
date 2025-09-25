@@ -1,9 +1,9 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T22:24:15.759-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T22:31:42.081-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
 
 ## 论文公式解释：
-
+ 
 所有公式号码的标注与原论文相同。
 ### Background: Policy Optimization
 
@@ -688,9 +688,11 @@ PPO的实现如下。以下代码片段来自[[30 - Resources/Code Repos/CleanRL
 
 
 回顾一下公式：
+
 $\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (1)$$
 
 $\hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (2)$$
+
 倒倒序循环是为了递归计算。把公式（2）变形一下：
 $$
 \begin{align*}
