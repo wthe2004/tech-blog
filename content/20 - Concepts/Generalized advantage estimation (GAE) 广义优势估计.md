@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-09-19T20:43:02.098-04:00","modified":"2025-09-25T10:20:57.355-04:00","tags":["ai","ppo","rl"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T20:43:02.098-04:00","modified":"2025-09-26T09:36:21.882-04:00","tags":["ai","ppo","rl"],"cssclasses":""}
 ---
 
 ## PPO论文中的GAE
@@ -81,45 +81,4 @@ $$\hat{A}_t = \underbrace{(r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \dots)}_{\t
 
 ### 实现
 
-
-回顾一下公式：
-$$
-\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (1)
-$$
-$$
-\hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (2)
-$$
-
-倒倒序循环是为了递归计算。把公式（2）变形一下：
-$$
-\begin{align*}
-\hat{A}_t &= \delta_t + (\gamma\lambda)\delta_{t+1} + (\gamma\lambda)^2\delta_{t+2} + \dots \\
-&= \delta_t + \gamma\lambda (\delta_{t+1} + (\gamma\lambda)\delta_{t+2} + \dots) \\
-&= \delta_t + \gamma\lambda \hat{A}_{t+1}
-\end{align*}
-$$
-
-```python
-        # bootstrap value if not done
-        with torch.no_grad():
-            next_value = agent.get_value(next_obs).reshape(1, -1)
-            advantages = torch.zeros_like(rewards).to(device)
-            lastgaelam = 0
-            for t in reversed(range(args.num_steps)):# 经典倒序循环，为了递归
-                if t == args.num_steps - 1:
-                    nextnonterminal = 1.0 - next_done
-                    nextvalues = next_value # 这里其实是循环的第一步
-                else:
-                    nextvalues = values[t + 1]
-                delta = ( # 公式1计算
-                    rewards[t] + args.gamma * nextvalues * nextnonterminal - values[t]
-                )
-                advantages[t] = lastgaelam = ( # 公式2计算
-                    delta + args.gamma * args.gae_lambda * nextnonterminal * lastgaelam
-                )
-            returns = advantages + values
-
-
-```
-
-
+![[[[GAE实现]]]]

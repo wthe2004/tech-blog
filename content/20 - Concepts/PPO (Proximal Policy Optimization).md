@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-09-24T23:41:34.648-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-10-03T22:40:40.201-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
 ---
 
 
@@ -733,7 +733,6 @@ $$
 
 
 
-
 当我们不再关心数据分别来自哪个序列的时候，我们就可以把num_env维的tensor给扁平化了。
 
 ```python
@@ -764,6 +763,8 @@ $$
 $$
 \hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)
 $$
+$$
+L^{VF} = (V(s_t) - V_t^{targ})$$
 
 代码如下：
 
