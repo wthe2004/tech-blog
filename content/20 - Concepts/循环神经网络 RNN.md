@@ -1,7 +1,12 @@
 ---
-{"publish":true,"aliases":"循环神经网络 RNN","created":"2025-09-25T13:36:00.732-04:00","modified":"2025-10-09T23:16:06.647-04:00","tags":["ai","ds"],"cssclasses":""}
+tags:
+  - ai
+  - ds
+aliases:
+  - 循环神经网络
+  - RNN
+publish: true
 ---
-
 ### 关键公式
 
 #### **前向传播 (Forward Pass)**

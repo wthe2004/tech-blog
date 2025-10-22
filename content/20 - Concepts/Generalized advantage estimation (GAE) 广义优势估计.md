@@ -1,7 +1,10 @@
 ---
-{"publish":true,"created":"2025-09-19T20:43:02.098-04:00","modified":"2025-09-26T09:36:21.882-04:00","tags":["ai","ppo","rl"],"cssclasses":""}
+tags:
+  - ai
+  - ppo
+  - rl
+publish: true
 ---
-
 ## PPO论文中的GAE
 ### 公式 (10), (11), (12): 优势函数的计算 (GAE)
 

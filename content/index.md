@@ -1,12 +1,12 @@
 ---
-{"publish":true,"created":"2025-09-22T16:24:00.956-04:00","modified":"2025-09-24T20:47:26.951-04:00","tags":["blog"],"cssclasses":""}
+{"publish":true,"created":"2025-10-14T19:52:27.139-04:00","modified":"2025-10-21T11:43:08.419-04:00","tags":["blog"],"cssclasses":""}
 ---
 
 ### Hi there 👋
 
 - 🔭 I’m currently working on 
 - 🌱 I’m currently learning ...
-	- [[00 - Atlas/Reinforcement Learning MOC]]
+	- [[10 - Areas/MOC/Reinforcement Learning MOC]]
 
 - 👯 I’m looking to collaborate on ...
 - 🤔 I’m looking for help with ...

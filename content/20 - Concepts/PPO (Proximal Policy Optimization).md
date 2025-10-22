@@ -1,7 +1,13 @@
 ---
-{"publish":true,"created":"2025-09-19T15:47:06.491-04:00","modified":"2025-10-03T22:40:40.201-04:00","tags":["ai","ppo","rl","blog"],"cssclasses":""}
+tags:
+  - ai
+  - ppo
+  - rl
+  - blog
+pdf: "[[schulman2017proximal-Proximal-Policy-Optimization-Algorithms.pdf]]"
+dg-publish: "true"
+publish: true
 ---
-
 
 ## 论文公式解释：
  
@@ -303,7 +309,12 @@ from torch.utils.tensorboard import SummaryWriter
 
 ### Args
 
-
+---
+tags:
+  - ai
+  - ppo
+  - rl
+---
 
 
 ```python
@@ -421,7 +432,12 @@ class Args:
 
 
 ### Gymnasium库的实验设置
-
+---
+tags:
+  - ai
+  - rl
+  - snippet
+---
 ```python
 def make_env(env_id, idx, capture_video, run_name):
     def thunk():
@@ -454,10 +470,22 @@ def make_env(env_id, idx, capture_video, run_name):
 
 ### Actor Critics类
 
-
+---
+tags:
+  - ai
+  - ppo
+  - rl
+  - snippet
+---
 在 [[30 - Resources/Code Repos/CleanRL]] 的`ppo.py`中，Actor-Critics框架是这样实现的：
 
-
+---
+tags:
+  - ai
+  - ds
+  - rl
+  - snippet
+---
 
 正交初始化权重，常数初始化偏置
 ```python
@@ -622,7 +650,12 @@ if __name__ == "__main__":
 
 ### 最外层循环框架
 
-
+---
+tags:
+  - ai
+  - ppo
+  - rl
+---
 对于PPO的一个Iteration而言，[[30 - Resources/Code Repos/CleanRL]]的实现有以下内容：
 
 循环`num_iterations`个iteration
@@ -630,7 +663,11 @@ if __name__ == "__main__":
     for iteration in range(1, args.num_iterations + 1):
 ```
 
-
+---
+tags:
+  - rl
+  - ai
+---
 即训练前期使用高学习率，随着学习的进行逐渐降低。
 一个简单的**线性学习率调度器 (Linear Learning Rate Scheduler)** 的实现如下：
 
@@ -641,7 +678,13 @@ if __name__ == "__main__":
             optimizer.param_groups[0]["lr"] = lrnow # optimizer是一个pytorch优化器对象。比如，可以是AdamW。优化器可以管理多组参数，通常我们只用一组，所以用 [0] 来访问第一组。
 ```
 
-
+---
+tags:
+  - ai
+  - ppo
+  - rl
+  - snippet
+---
 On Policy的数据采集特点是，每个iteration采集一次，存在Rollout Buffer中，进行若干轮epochs的更新，然后进入到下一个buffer。
 
 PPO的实现如下。以下代码片段来自[[30 - Resources/Code Repos/CleanRL]]
@@ -689,7 +732,13 @@ PPO的实现如下。以下代码片段来自[[30 - Resources/Code Repos/CleanRL
                         )
 ```
 
-
+---
+tags:
+  - ppo
+  - ai
+  - rl
+  - snippet
+---
 回顾一下公式：
 $$
 \delta_t = r_t + \gamma V(s_{t+1}) - V(s_t) \quad (1)
@@ -732,7 +781,13 @@ $$
 
 
 
-
+---
+tags:
+  - ai
+  - ppo
+  - rl
+  - snippet
+---
 当我们不再关心数据分别来自哪个序列的时候，我们就可以把num_env维的tensor给扁平化了。
 
 ```python
@@ -745,7 +800,13 @@ $$
         b_values = values.reshape(-1)
 ```
 
-
+---
+tags:
+  - ai
+  - ppo
+  - rl
+  - snippet
+---
 还是先来点公式经典回顾
 
 $$
@@ -764,7 +825,8 @@ $$
 \hat{A}_t = \delta_t + (\gamma\lambda)\delta_{t+1} + \dots + (\gamma\lambda)^{T-t-1}\delta_{T-1} \quad (11)
 $$
 $$
-L^{VF} = (V(s_t) - V_t^{targ})$$
+L^{VF} = (V(s_t) - V_t^{targ})^2
+$$
 
 代码如下：
 
@@ -806,13 +868,15 @@ L^{VF} = (V(s_t) - V_t^{targ})$$
                     )
 
                 # Policy loss
-                # 就是L                pg_loss1 = -mb_advantages * ratio
+                # 就是L^CLIP
+                pg_loss1 = -mb_advantages * ratio
                 pg_loss2 = -mb_advantages * torch.clamp(
                     ratio, 1 - args.clip_coef, 1 + args.clip_coef
                 )
                 pg_loss = torch.max(pg_loss1, pg_loss2).mean()
 
-                # Value loss 即L                newvalue = newvalue.view(-1)
+                # Value loss 即L^VF
+                newvalue = newvalue.view(-1)
                 if args.clip_vloss:
                     v_loss_unclipped = (newvalue - b_returns[mb_inds]) ** 2
                     v_clipped = b_values[mb_inds] + torch.clamp(

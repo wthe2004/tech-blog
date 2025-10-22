@@ -1,10 +1,7 @@
 ---
-tags:
-  - ai
-  - ml
-  - transformer
-publish: true
+{"publish":true,"created":"2025-10-14T19:52:27.139-04:00","modified":"2025-10-17T10:40:17.499-04:00","tags":["ai","ml","transformer"],"cssclasses":""}
 ---
+
 感谢 [The Annotated Transformer]([nlp.seas.harvard.edu/](https://nlp.seas.harvard.edu/ "https://nlp.seas.harvard.edu/")) 和 [The Annotated Transformer中文翻译](https://github.com/mcxiaoxiao/annotated-transformer-Chinese)
 
 ### 准备工作

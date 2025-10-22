@@ -1,7 +1,10 @@
 ---
-{"publish":true,"created":"2025-09-19T09:57:25.249-04:00","modified":"2025-10-09T23:17:34.647-04:00","tags":["transformer"],"cssclasses":""}
+tags:
+  - transformer
+creation-date: 2025-09-19
+related-paper-pdf: "[[vaswani2017attention-Attention-is-All-You-Need.pdf]]"
+publish: true
 ---
-
 [Attention is All You Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf)
 ## Background
 
@@ -632,7 +635,7 @@ Self-Attention这个机制究竟好在哪里呢？论文分析了时间复杂度
 
 ## Implementation
 
-[[The Annotated Transformer]]
+[[20 - Concepts/The Annotated Transformer]]
 
 [[30 - Resources/Code Repos/NanoGPT]]
 
