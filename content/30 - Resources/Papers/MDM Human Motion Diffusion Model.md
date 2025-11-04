@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-10-15T11:29:19.296-04:00","modified":"2025-10-21T11:43:35.086-04:00","tags":["ai","diffusion","robotics"],"cssclasses":""}
+{"publish":true,"created":"2025-10-15T11:29:19.296-04:00","modified":"2025-11-02T10:55:23.844-05:00","tags":["ai","diffusion","robotics","paper"],"cssclasses":""}
 ---
 
 [Github](https://github.com/GuyTevet/motion-diffusion-model) [arXiv](https://arxiv.org/pdf/2209.14916)
