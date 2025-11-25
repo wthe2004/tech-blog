@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-11-24T20:46:45.784-05:00","modified":"2025-11-25T00:01:52.301-05:00","tags":["ai","diffusion"],"cssclasses":""}
+{"publish":true,"created":"2025-11-24T20:46:45.784-05:00","modified":"2025-11-25T09:17:58.301-05:00","tags":["ai","diffusion"],"cssclasses":""}
 ---
 
 
@@ -155,7 +155,7 @@ Overall, our guided denoising-based control framework follows a receding horizon
 - denoise future action tokens
 - decode action tokens into executable actions
 
-CFG: $\hat{\mathbf{X}}_c^0 = \mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \emptyset) + \lambda_c(\mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \mathbf{c}) - \mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \emptyset)) \tag{2}$ where $\lambda_c$ controls the guidance strength.
+CFG: $\hat{\mathbf{X}}_c^0 = \mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \emptyset) + \lambda_c(\mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \mathbf{c}) - \mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \emptyset))$ where $\lambda_c$ controls the guidance strength.
 
 Task-Specific Loss-Guided Sampling: $\hat{\mathbf{X}}_l^0 = \mathcal{M}_\theta(\mathbf{X}^\mathbf{k}, \mathbf{k}, \mathbf{c}) - \lambda_l \nabla_{\mathbf{X}^\mathbf{k}}\mathcal{G}(\hat{\mathbf{X}}^0)$ where $\lambda_l$ controls the guidance strength. (Gradient descent)
 - Monte-Carlo Guidance: $\nabla' \mathcal{G}(\hat{\mathbf{X}}^0) = \frac{1}{N} \sum_{i=1}^N \nabla_{\mathbf{X}^{\mathbf{k}}} \mathcal{G}(\hat{\mathbf{X}}_{(i)}^0)$, where $N$ is the number of samples
