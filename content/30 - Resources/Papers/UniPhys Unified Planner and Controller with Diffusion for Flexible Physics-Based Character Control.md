@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-11-24T20:46:45.784-05:00","modified":"2025-11-25T09:17:58.301-05:00","tags":["ai","diffusion"],"cssclasses":""}
+{"publish":true,"created":"2025-11-24T20:46:45.784-05:00","modified":"2025-11-25T09:27:31.237-05:00","tags":["diffusion","human-motion-generation","rl"],"cssclasses":""}
 ---
 
 
@@ -22,7 +22,7 @@
 			2. handle discrepancies introduced by the physics simulator
 			3. no task-specific find-tuning
 
-![[UniPhys fig1.png]]
+![[99 - Attachments/images/UniPhys fig1.png]]
 
 Figure 1
  - (a) text-driven control with dynamic language instructions
@@ -89,7 +89,7 @@ Figure 1
 	- $\mathbf{z}_t = \pi_{\text{task}}(\mathbf{o}_t, \mathbf{g}_t^{\text{task}})$ , where $\mathbf{o}_t$ is the current observation and $\mathbf{g}_t^{\text{task}}$ is the task goal.
 	- embedding $z_{t}$ captures the dynamic transition between consecutive frames
 
-![[UniPhys fig2.png]]
+![[99 - Attachments/images/UniPhys fig2.png]]
 Figure 2:We construct a large-scale paired state-action dataset by tracking MoCap dataset with [PULSE](https://arxiv.org/abs/2310.04582) tracking policy
 
 ### UniPhys: Unified Planner and Controller
@@ -146,7 +146,7 @@ The model is parameterized as $\mathcal{M}_{\theta}(\mathbf{X}^{\mathbf{k}}, \ma
 
 The training loss $\mathcal{L}(\theta) = \mathbb{E}_{\mathbf{k}, \mathbf{X}^0} \left[ \left\lVert \mathbf{X}^0 - \mathcal{M}_{\theta}(\mathbf{X}^{\mathbf{k}}, \mathbf{k}, \mathbf{c}) \right\rVert^2 \right]$ is a MSE loss, calculating data sequence $\mathbf{X}^0$ and predicted sequence $\mathcal{M}_{\theta}(\mathbf{X}^{\mathbf{k}}, \mathbf{k}, \mathbf{c})$
 
-![[UniPhys Algo1.png]]
+![[99 - Attachments/images/UniPhys Algo1.png]]
 
 ##### Guided Behavior Synthesis for Flexible Control
 
@@ -176,7 +176,7 @@ Task-Specific Loss-Guided Sampling: $\hat{\mathbf{X}}_l^0 = \mathcal{M}_\theta(\
 
 A noise indicator $k$ to signal that previous states are slightly noisy, without adding noise to the state-action predictions
 
-![[UniPhys fig3.png]]
+![[99 - Attachments/images/UniPhys fig3 1.png]]
 Figure 3:Framework overview. 
 1. The model takes a behavior sequence of length T as input and is conditioned on the clip-based text embedding. At training time, each frame is corrupted with different noise levels, and the model learns to predict the clean behavior sequence.
 2. At test time, guided denoising with task-specific guidance enables flexible multi-task control. We highlight the flexibility in different test-time denoising conditions and configurations, and the stabilization trick that promotes stable long-horizon autoregressive control.
