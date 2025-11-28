@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-11-25T09:26:16.311-05:00","modified":"2025-11-26T18:40:50.726-05:00","tags":["human-motion-generation","rl","ppo","distillation"],"cssclasses":""}
+{"publish":true,"created":"2025-11-25T09:26:16.311-05:00","modified":"2025-11-28T13:19:45.312-05:00","tags":["human-motion-generation","rl","ppo","distillation"],"cssclasses":""}
 ---
 
 [arxiv](https://arxiv.org/abs/2502.20390)
@@ -256,3 +256,56 @@ Student: Transformer
 
 
 ![[Pasted image 20251126181305.png]]
+
+#### Applying Physical Constraints
+
+to fix approximation errors
+
+- the denoised motion $\tilde{x}^{1:H}$ (the desired outcome)
+- a physics-based motion projection $\mathcal{P}_\pi : \mathbb{R}^{H \times J \times D} \to \mathbb{R}^{H \times J \times D}$
+	- maps the original motion $\tilde{x}^{1:H}$ to a physically-plausible one, denoted as $\hat{x}^{1:H}$
+
+![[PhysDiff algo2.png]]
+
+#### Physics-Based Motion Projection
+
+##### Motion Imitation Formulation
+
+- Markov decision process (MDP) defined by a tuple $\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{T}, R, \gamma)$ of states, actions, transition dynamics, a reward function, and a discount factor
+- A character agent acts in a physics simulator according to a motion imitation policy $\pi(a^h|s^h)$, which models the distribution of choosing an action $a^h \in \mathcal{A}$ given the current state $s^h \in \mathcal{S}$. The state $s^h$ consists of the character's physical state (e.g., joint angles, velocities, positions) as well as the next pose $\tilde{x}^{h+1}$ from the input motion. Including $\tilde{x}^{h+1}$ in the state informs the policy $\pi$ to choose an action $a^h$ that can mimic $\tilde{x}^{h+1}$ in the simulator. Starting from an initial state $s^1$, the agent iteratively samples an action $a^h$ from the policy $\pi$ and the simulator with transition dynamics $\mathcal{T}(s^{h+1}|s^h, a^h)$ generates the next state $s^{h+1}$, from which we can extract the simulated pose $\hat{x}^{h+1}$. By running the policy for $H$ steps, we can obtain the physically-simulated motion $\hat{x}^{1:H}$.
+
+
+the objective is to maximize the expected discounted return $J(\pi) = \mathbb{E}_\pi [\sum_h \gamma^h r^h]$
+
+The reward $r^h$ at each timestep consists of four sub-rewards:
+
+$$r^h = w_{\text{p}} r^h_{\text{p}} + w_{\text{v}} r^h_{\text{v}} + w_{\text{j}} r^h_{\text{j}} + w_{\text{q}} r^h_{\text{q}}, \quad (4)$$
+The four errors are all in the same form$$r = \exp [-\alpha \times \text{error}^2]$$
+$$r^h_{\text{p}} = \exp [-\alpha_{\text{p}} (\sum_{j=1}^J \|o_j^h \ominus \bar{o}_j^h\|^2)], \quad (5)$$
+
+$$r^h_{\text{v}} = \exp [-\alpha_{\text{v}} \|v^h - \bar{v}^h\|^2], \quad (6)$$
+
+$$r^h_{\text{j}} = \exp [-\alpha_{\text{j}} (\sum_{j=1}^J \|p_j^h - \bar{p}_j^h\|^2)], \quad (7)$$
+
+$$r^h_{\text{q}} = \exp [-\alpha_{\text{q}} (\sum_{j=1}^J \|q_j^h - \bar{q}_j^h\|^2)]. \quad (8)$$
+
+where $w_{\text{p}}, w_{\text{v}}, w_{\text{j}}, w_{\text{q}}, \alpha_{\text{p}}, \alpha_{\text{v}}, \alpha_{\text{j}}, \alpha_{\text{q}}$ are weighting factors.
+- The pose reward $r^h_{\text{p}}$ measures the difference between the local joint rotations $o_j^h$ and the ground truth $\bar{o}_j^h$
+	- $\ominus$ denotes the relative rotation between two rotations
+	- $\|\cdot\|$ computes the rotation angle
+- The velocity reward $r^h_{\text{v}}$ measures the mismatch between joint velocities $v^h$ and the ground truth $\bar{v}^h$, 
+	- which are computed via finite difference. 
+- The joint position reward $r^h_{\text{j}}$ encourages the 3D world joint positions $p_j^h$ to match the ground truth $\bar{p}_j^h$.
+- Finally, the joint rotation reward $r^h_{\text{q}}$ measures the difference between the global joint rotations $q_j^h$ and the ground truth $\bar{q}_j^h$.
+
+**States**. The agent state shs^h consists of the character's current physical state, the input motion's next pose x^h+1\hat{x}^{h+1}, and a character attribute vector ψ\psi. The character's physical state includes its joint angles, joint velocities, and rigid bodies' positions, rotations, and linear and angular velocities. For the input pose x^h+1\hat{x}^{h+1}, the state shs^h contains the difference of x^h+1\hat{x}^{h+1} w.r.t. the agent in joint angles as well as rigid body positions and rotations. Using the difference informs the policy about the pose residual it needs to compensate for. All the features are computed in the character's heading coordinate to ensure rotation and translation invariance. Since our character is based on the SMPL body model, the attribute ψ\psi includes the gender and SMPL shape parameters to allow the policy to control different characters.
+
+**Actions**. We use the target joint angles of proportional derivative (PD) controllers as the action representation, which enables robust motion imitation as observed in prior work. We also add residual forces in the action space to stabilize the character and compensate for missing contact forces required to imitate motions such as sitting.
+
+**Policy**. We use a parametrized Gaussian policy π(ah∣sh)=N(μθ(sh),Σ)\pi(a^h|s^h) = \mathcal{N}(\mu_\theta(s^h), \Sigma) where the mean action μθ\mu_\theta is output by a simple multi-layer perceptron (MLP) network with parameters θ\theta, and Σ\Sigma is a fixed diagonal covariance matrix.
+
+
+
+
+
+
