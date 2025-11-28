@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-11-26T18:40:08.879-05:00","modified":"2025-11-28T18:04:53.845-05:00","cssclasses":""}
+{"publish":true,"created":"2025-11-26T18:40:08.879-05:00","modified":"2025-11-28T18:08:04.282-05:00","tags":["human-motion-generation","diffusion"],"cssclasses":""}
 ---
 
 ### Abstract
